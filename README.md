@@ -8,8 +8,6 @@
 
 **Professor:** Sam Heckle
 
-<br>
-
 **Team:** Judy, Kris, Jorge, Tiqon
 
 <br>
