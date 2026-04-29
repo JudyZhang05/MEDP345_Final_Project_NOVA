@@ -1,11 +1,11 @@
-# MEDP345_Final_Project_NOVA
+# NOVA
 
 ##### Published Website: WORK IN PROGRESS - stay tuned!
 
-**Spring Term 2026 - MEDP345 Web Design Projects**<br>
-Professor: Sam Heckle
+**Spring Term 2026 - MEDP345 Web Design Project - Final Project**<br>
+**Professor:** Sam Heckle
 <br>
-Team: Judy, Kris, Jorge, Tiqon
+**Team:** Judy, Kris, Jorge, Tiqon
 
 <br>
 
