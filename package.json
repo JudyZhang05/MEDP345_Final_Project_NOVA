@@ -24,6 +24,7 @@
     "three": "^0.184.0"
   },
   "devDependencies": {
+    "@vituum/vite-plugin-nunjucks": "^2.0.1",
     "vite": "^8.0.10"
   }
 }

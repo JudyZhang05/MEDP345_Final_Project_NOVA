@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { OrbitControls } from "../vendor_mods/three/examples/jsm/controls/OrbitControls.js";
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 let model; // we’ll store the loaded model here
 let mixer; // animation storage
@@ -55,7 +55,7 @@ scene.add(pointLight);
 // Load GLB model
 const loader = new GLTFLoader();
 loader.load(
-  "../public/assets/moonlight_ash_tree.glb", // 3D object file
+  "/assets/moonlight_ash_tree.glb", // 3D object file
   (gltf) => {
     model = gltf.scene;
     model.position.y = -1.2
@@ -73,7 +73,7 @@ loader.load(
   }
 );
 loader.load(
-  "../public/assets/an_animated_cat.glb", // 3D object file
+  "/assets/an_animated_cat.glb", // 3D object file
   (gltf) => {
     model2 = gltf.scene;
     model2.position.x = .2
@@ -96,7 +96,7 @@ loader.load(
   }
 )
 loader.load(
-  "../public/assets/simple_moon_jellyfish_baked_animation.glb", // 3D object file
+  "/assets/simple_moon_jellyfish_baked_animation.glb", // 3D object file
   (gltf) => {
     model3 = gltf.scene;
     model3.position.x = .9
