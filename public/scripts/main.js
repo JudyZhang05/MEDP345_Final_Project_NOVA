@@ -136,17 +136,17 @@ container.addEventListener("pointerdown", () => {
 // })
 
 // zoom in on cat
-document.querySelector('.container').addEventListener("click", () => {
-    controls.minPolarAngle = 2.2;
-    controls.maxPolarAngle = 2.2;
-    gsap.to(camera.position, {
-            x: 0.4121974230222388,
-            y: -0.46439531004727963,
-            z: 0.4775402570732228,
-            duration: 2
-        }
-    )
-})
+// document.querySelector('.container').addEventListener("click", () => {
+//     controls.minPolarAngle = 2.2;
+//     controls.maxPolarAngle = 2.2;
+//     gsap.to(camera.position, {
+//             x: 0.4121974230222388,
+//             y: -0.46439531004727963,
+//             z: 0.4775402570732228,
+//             duration: 2
+//         }
+//     )
+// })
 
 
 // Animation loop

@@ -17,7 +17,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    res.render('header.njk', { title: "FINAL" });
+    res.render('header.njk', { title: "NOVA" });
 });
 
 
