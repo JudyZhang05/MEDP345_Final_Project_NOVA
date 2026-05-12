@@ -12,10 +12,59 @@ canvas {
   position: fixed;
   top: 0;
   right: 0;
-  padding: 0px 2%;
+  padding: 0px 1.5%;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 2%;
   margin-right: 2%;
   border: black solid 2px;
+  z-index: 100;
+  transition: .3s ease;
+  background-color: white;
+}
+.objectZoom:hover{
+  background-color: black;
+  color: white;
+  border-color: white;
+}
+
+.conversation{
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.speech{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 20px;
+}
+
+.profileImg{
+  width: 200px;
+  border-radius: 100px;
+}
+
+#userSpeech{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.bubble{
+  background: rgba(255, 255, 255, 0.733);
+  border: solid 5px white;
+  border-radius: 20px;
+  height: 10vh;
+  width: 80vw;
+  text-align: start;
+  align-content: center;
+  padding: 2%;
+}
+#userTalk{
+  text-align: end;
+  overflow: auto;
 }

@@ -57,6 +57,7 @@ const resetControls = () => {
   controls.minAzimuthAngle = 0
   controls.maxAzimuthAngle = Infinity
   controls.enablePan = true
+  controls.update()
 }
 
 // Ambient light (overall brightness)
@@ -197,52 +198,43 @@ container.addEventListener("pointerdown", () => {
 
 // to see where camera position is
 const zoom = document.querySelector('.objectZoom')
+const convo = document.querySelector('.conversation')
 zoom.addEventListener("click", () => {
-    // controls.minPolarAngle = 2.2;
-    // controls.maxPolarAngle = 2.2;
-    // controls.reset()
-    resetControls()
-    // controls.update();
-    gsap.to(camera.position, {
-            x: 0,
-            y: 10,
-            z: -10,
-            duration: 2
-        }
-    )
+  resetControls()
+
+  gsap.to(controls.target, {
+      x: 3,
+      y: 7,
+      z: 0,
+      duration: 2,
+    }
+  )
+  gsap.to(camera.position, {
+      x: 3,
+      y: 7,
+      z: 0.01,
+      duration: 2,
+    }
+  )
+
+  convo.style.display = "flex"
+  gsap.fromTo(convo, { opacity: 0 }, { opacity: 1, duration: 1, delay: 2 })
+
+  controls.minPolarAngle = 0
+  controls.maxPolarAngle = 0
+  controls.minDistance = 0
+  controls.maxDistance = 0
+  controls.minAzimuthAngle = 0
+  controls.maxAzimuthAngle = 0
 })
-
-// controls.addEventListener("change", () => {
-//     console.log(controls.object.position)
-// })
-
-// zoom in on cat
-// document.querySelector('.container').addEventListener("click", () => {
-//     controls.minPolarAngle = 2.2;
-//     controls.maxPolarAngle = 2.2;
-//     gsap.to(camera.position, {
-//             x: 0.4121974230222388,
-//             y: -0.46439531004727963,
-//             z: 0.4775402570732228,
-//             duration: 2
-//         }
-//     )
-// })
-
 
 // Animation loop
 function animate() {
     requestAnimationFrame(animate);
 
-    // if (model3) {
-    //     model3.rotation.y += 0.005; // rotate around Y axis
-    // }
-
     controls.update()
     renderer.render(scene, camera);
     mixer.update(0.02)
     mixer4.update(0.02)
-    // mixer2.update(0.02)
-    // mixer3.update(0.02)
 }
 animate();
