@@ -16,7 +16,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.render("header.njk", { title: "NOVA" });
+  res.render("chat.njk", { title: "NOVA" });
 });
 
 app.get("/about", (req, res) => {
