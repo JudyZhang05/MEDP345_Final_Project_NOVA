@@ -165,29 +165,6 @@ loader.load(
   },
 );
 
-// loader.load(
-//   "/assets/simple_moon_jellyfish_baked_animation.glb", // 3D object file
-//   (gltf) => {
-//     model3 = gltf.scene;
-//     model3.position.x = .9
-//     model3.position.y = -.1
-//     model3.scale.x = .2
-//     model3.scale.y = .2
-//     model3.scale.z = .2
-//     scene.add(model3);
-
-//     mixer3 = new THREE.AnimationMixer(model3)
-//     let action3 = mixer3.clipAction(gltf.animations[0])
-//     action3.play()
-//   },
-//   (xhr) => {
-//     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-//   },
-//   (error) => {
-//     console.error("Error loading model:", error);
-//   }
-// )
-
 const container = document.querySelector("canvas");
 container.style.touchAction = "none";
 container.style.cursor = "grab";
