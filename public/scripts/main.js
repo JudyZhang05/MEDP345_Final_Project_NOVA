@@ -252,7 +252,7 @@ function animate() {
 
   if(model2){
     window.addEventListener('mousemove', (e) => {
-      model2.rotation.y = 500/e.clientX >= 2.9 ? 3 : 500/e.clientX;
+      model2.rotation.y = 500/e.clientX >= 2.9 ? 3 : 500/e.clientX; // Duck rotates to follow user's cursor
     })
   }
 
