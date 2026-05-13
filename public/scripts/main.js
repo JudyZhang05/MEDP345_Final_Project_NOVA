@@ -14,7 +14,6 @@ window.onload = () => {
 let model; // we’ll store the loaded model here
 let mixer; // animation storage
 let model2;
-// let mixer2
 let model3;
 let model4;
 let mixer4;
@@ -55,7 +54,7 @@ const setControlLimits = () => {
   controls.minAzimuthAngle = -95 * degToRad;
   controls.maxAzimuthAngle = 95 * degToRad;
 };
-// setControlLimits()
+setControlLimits()
 
 // reset controls
 const resetControls = () => {
@@ -214,31 +213,54 @@ container.addEventListener(
 // to see where camera position is
 const zoom = document.querySelector(".objectZoom");
 const convo = document.querySelector(".conversation");
+convo.style.display = "none"
+zoom.innerHTML = "Zoom In"
 zoom.addEventListener("click", () => {
-  resetControls();
+  if(convo.style.display == "none"){
+    resetControls();
+    zoom.innerHTML = "Zoom Out"
+    gsap.to(controls.target, { // moves the camera angle
+      x: 3,
+      y: 7,
+      z: 0,
+      duration: 2,
+    });
+    gsap.to(camera.position, { // moves the camera position
+      x: 3,
+      y: 7,
+      z: 0.01,
+      duration: 2,
+    });
 
-  gsap.to(controls.target, {
-    x: 3,
-    y: 7,
-    z: 0,
-    duration: 2,
-  });
-  gsap.to(camera.position, {
-    x: 3,
-    y: 7,
-    z: 0.01,
-    duration: 2,
-  });
+    convo.style.display = "flex";
+    gsap.fromTo(convo, { opacity: 0 }, { opacity: 1, duration: 1, delay: 2 });
 
-  convo.style.display = "flex";
-  gsap.fromTo(convo, { opacity: 0 }, { opacity: 1, duration: 1, delay: 2 });
-
-  controls.minPolarAngle = 0;
-  controls.maxPolarAngle = 0;
-  controls.minDistance = 0;
-  controls.maxDistance = 0;
-  controls.minAzimuthAngle = 0;
-  controls.maxAzimuthAngle = 0;
+    // freezes the orbit controls
+    controls.minPolarAngle = 0;
+    controls.maxPolarAngle = 0;
+    controls.minDistance = 0;
+    controls.maxDistance = 0;
+    controls.minAzimuthAngle = 0;
+    controls.maxAzimuthAngle = 0;
+  }else{
+    resetControls();
+    zoom.innerHTML = "Zoom In"
+    gsap.to(controls.target, { // moves the camera angle
+      x: 0,
+      y: 0,
+      z: 0,
+      duration: 2,
+    });
+    gsap.to(camera.position, { // moves the camera position
+      x: 0,
+      y: 0,
+      z: 3,
+      duration: 2,
+    });
+    convo.style.display = "none";
+    gsap.fromTo(convo, { opacity: 1 }, { opacity: 0, duration: 1, delay: 2 });
+  }
+  
 });
 
 // Animation loop
