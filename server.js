@@ -31,7 +31,7 @@ app.get("/about", (req, res) => {
 
 //to test if user has connected to the website
 io.on("connection", (socket) => {
-  console.log("a user has connected");
+  console.log("a new user has connected!");
 
   //to test if user has disconnected from the website
   socket.on("disconnect", () => {
