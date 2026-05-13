@@ -1,5 +1,6 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
+
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 
@@ -29,7 +30,7 @@ app.get("/about", (req, res) => {
 });
 
 //to test if user has connected to the website
-io.on("connnection", (socket) => {
+io.on("connection", (socket) => {
   console.log("a user has connected");
 
   //to test if user has disconnected from the website
@@ -38,6 +39,6 @@ io.on("connnection", (socket) => {
   });
 });
 
-app.listen(4000, () => {
+httpServer.listen(4000, () => {
   console.log("Server running on http://localhost:4000");
 });

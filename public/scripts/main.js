@@ -5,6 +5,10 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 window.onload = () => {
   //adding socket into client
   const socket = io();
+
+  console.log("file has loaded");
+
+  socket.emit("chat message", "hello it's me");
 };
 
 let model; // we’ll store the loaded model here

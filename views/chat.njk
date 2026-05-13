@@ -1,19 +1,15 @@
-{% extends "header.njk" %}
+{% include "header.njk" %}
 {% block content %}
-
-<div class="objectZoom">
-    <p>Zoom</p>
-</div>
-
-<div class="conversation">
-    <div class="speech">
-        <img src="/assets/cat.gif" class="profileImg">
-        <p class="bubble" id="catTalk">TEST</p>
+    <div class="objectZoom">
+        <p>Zoom</p>
     </div>
-    <div class="speech" id="userSpeech">
-        <img src="/assets/duckProfile.png" class="profileImg">
-        <input type="text" class="bubble" id="userTalk" placeholder="Say something..."></input>
+    <div class="conversation">
+        <div class="speech">
+            <img src="/assets/cat.gif" class="profileImg">
+            <p class="bubble" id="catTalk">TEST</p>
+        </div>
+        <div class="speech" id="userSpeech">
+            <img src="/assets/duckProfile.png" class="profileImg">
+        <input type="text" class="bubble" id="userTalk" placeholder="Say something..."> </input>
     </div>
-</div>
-
-{% endblock %}
+</div>{% endblock %}
