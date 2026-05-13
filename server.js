@@ -1,8 +1,13 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 
 //initialize
 let app = express();
+
+const httpServer = createServer(app);
+const io = new Server(httpServer);
 
 //setup nunjucks
 nunjucks.configure("views", {
@@ -21,6 +26,16 @@ app.get("/", (req, res) => {
 
 app.get("/about", (req, res) => {
   res.render("about.njk", { title: "About The Project" });
+});
+
+//to test if user has connected to the website
+io.on("connnection", (socket) => {
+  console.log("a user has connected");
+
+  //to test if user has disconnected from the website
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
 });
 
 app.listen(4000, () => {
