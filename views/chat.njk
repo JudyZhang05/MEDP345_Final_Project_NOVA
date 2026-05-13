@@ -2,22 +2,27 @@
 {% block content %}
 
 <div class="objectZoom">
-    <p>Zoom</p>
+    <img id="chatSymbol" src="https://www.svgrepo.com/show/501494/chat.svg">
 </div>
 
 <div class="conversation">
     <div class="speech">
         <img src="/assets/cat.gif" class="profileImg">
-        <p class="bubble" id="catTalk">Meow Meow Meow</p>
+        <p class="bubble" id="catTalk">What is your wish?</p>
     </div>
-    <div class="speech" id="userSpeech">
-        <img src="/assets/duckProfile.png" class="profileImg">
-        <input type="text" class="bubble" id="userTalk" placeholder="Say something..."></input>
+    <div class="userContainer">
+        <div class="history">
+            <p><b>Hungry Duck:</b> I wish for more time on this project!</p>
+            <p><b>Mad Duck:</b> I wish for more money!</p>
+            <p><b>Loud Duck:</b> I wish for more friends!</p>
+            <p><b>Clown Duck:</b> I wish for rubber ducks!</p>
+        </div>
+        <div class="speech" id="userSpeech">
+            <img src="/assets/duckProfile.png" class="profileImg">
+            <input type="text" class="bubble" id="userTalk" placeholder="I wish for..."></input>
+        </div>
     </div>
-</div>
-
-<div class="about">
-    <img src="https://www.svgrepo.com/show/146775/question-mark-in-a-circle.svg">
+    
 </div>
 
 <div class="about">
