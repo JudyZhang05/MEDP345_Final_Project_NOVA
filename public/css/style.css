@@ -42,6 +42,7 @@ canvas {
   align-items: center;
   gap: 20px;
   margin: 20px;
+  user-select: none;
 }
 
 .profileImg{
@@ -55,7 +56,7 @@ canvas {
 }
 
 .bubble{
-  background: rgba(255, 255, 255, 0.733);
+  background: rgba(255, 255, 255, 0.863);
   border: solid 5px white;
   border-radius: 20px;
   height: 10vh;
@@ -67,4 +68,19 @@ canvas {
 #userTalk{
   text-align: end;
   overflow: auto;
+}
+
+.about img{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  margin: 20px;
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(278deg) brightness(102%) contrast(102%);
+  transition: ease .3s;
+}
+
+.about img:hover{
+  scale: 110%;
+  cursor: pointer;
 }
