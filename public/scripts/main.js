@@ -189,13 +189,15 @@ container.addEventListener(
 
 // to see where camera position is
 const zoom = document.querySelector(".objectZoom");
+const chatSymbol = document.getElementById('chatSymbol')
 const convo = document.querySelector(".conversation");
 convo.style.display = "none"
-zoom.innerHTML = "Zoom In"
 zoom.addEventListener("click", () => {
   if(convo.style.display == "none"){
     resetControls();
-    zoom.innerHTML = "Zoom Out"
+    console.log(chatSymbol.src)
+    chatSymbol.src = "https://www.svgrepo.com/show/486564/cancel.svg"
+    // graceful join
     gsap.to(controls.target, { // moves the camera angle
       x: 3,
       y: 7,
@@ -221,28 +223,38 @@ zoom.addEventListener("click", () => {
     controls.maxAzimuthAngle = 0;
   }else{
     resetControls();
-    zoom.innerHTML = "Zoom In"
-    gsap.to(controls.target, { // moves the camera angle
-      x: 0,
-      y: 0,
-      z: 0,
-      duration: 2,
-    });
-    gsap.to(camera.position, { // moves the camera position
-      x: 0,
-      y: 0,
-      z: 3,
-      duration: 2,
-    });
-    convo.style.display = "none";
-    gsap.fromTo(convo, { opacity: 1 }, { opacity: 0, duration: 1, delay: 2 });
+    chatSymbol.src = "https://www.svgrepo.com/show/501494/chat.svg"
+    
+    // graceful exit
+    gsap.fromTo(convo, { opacity: 1 }, { opacity: 0, duration: 1});
+    setTimeout(() => {
+      gsap.to(controls.target, { // moves the camera angle
+        x: 0,
+        y: 0,
+        z: 0,
+        duration: 2,
+      });
+      gsap.to(camera.position, { // moves the camera position
+        x: 0,
+        y: 0,
+        z: 3,
+        duration: 2,
+      });
+      convo.style.display = "none";
+    }, 1000);
   }
-  
+  setControlLimits()
 });
 
 // Animation loop
 function animate() {
   requestAnimationFrame(animate);
+
+  if(model2){
+    window.addEventListener('mousemove', (e) => {
+      model2.rotation.y = 500/e.clientX >= 2.9 ? 3 : 500/e.clientX;
+    })
+  }
 
   controls.update();
   renderer.render(scene, camera);
