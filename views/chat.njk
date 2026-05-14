@@ -1,23 +1,21 @@
 {% include "header.njk" %}
 {% block content %}
-
-<div class="objectZoom">
-    <p>Zoom</p>
-</div>
-
-<div class="conversation">
-    <div class="speech">
-        <img src="/assets/cat.gif" class="profileImg">
-        <p class="bubble" id="catTalk">Meow Meow Meow</p>
+    <div class="objectZoom">
+        <p>Zoom</p>
     </div>
-    <div class="speech" id="userSpeech">
-        <img src="/assets/duckProfile.png" class="profileImg">
-        <input type="text" class="bubble" id="userTalk" placeholder="Say something..."></input>
+    <div class="conversation">
+        <div class="speech">
+            <img src="/assets/cat.gif" class="profileImg">
+            <p class="bubble" id="catTalk">Meow Meow Meow</p>
+        </div>
+        <div class="speech" id="userSpeech">
+            <img src="/assets/duckProfile.png" class="profileImg">
+        <input type="text" class="bubble" id="userTalk" placeholder="Say something..."> </input>
     </div>
 </div>
-
 <div class="about">
     <img src="https://www.svgrepo.com/show/146775/question-mark-in-a-circle.svg">
 </div>
-
-{% endblock %}
+<div class="about">
+    <img src="https://www.svgrepo.com/show/146775/question-mark-in-a-circle.svg">
+</div>{% endblock %}

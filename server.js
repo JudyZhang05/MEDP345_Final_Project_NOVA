@@ -25,13 +25,9 @@ app.get("/", (req, res) => {
   res.render("chat.njk", { title: "NOVA" });
 });
 
-app.get("/about", (req, res) => {
-  res.render("about.njk", { title: "About The Project" });
-});
-
 //to test if user has connected to the website
 io.on("connection", (socket) => {
-  console.log("a new user has connected!");
+  console.log("a new user has conneccted!");
 
   //to test if user has disconnected from the website
   socket.on("disconnect", () => {
