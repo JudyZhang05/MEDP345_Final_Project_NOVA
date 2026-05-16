@@ -9,6 +9,24 @@ window.onload = () => {
   console.log("file has loaded");
 
   socket.emit("chat message", "hello it's me");
+
+  const form = document.getElementById('userSpeechForm')
+  const messages = document.getElementById('allMessages')
+  const username = document.getElementById('username')
+  const wish = document.getElementById('userWish')
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    socket.emit('user wish', `<b>${username.value} Duck:<b> ${wish.value}`)
+    wish.value = '' 
+  })
+
+  socket.on('server sent data', (dataFromServer) => {
+    const item = document.createElement('p')
+    item.innerHTML = dataFromServer
+    messages.appendChild(item)
+  })
 };
 
 let model; // we’ll store the loaded model here
@@ -85,7 +103,7 @@ scene.add(pointLight);
 // Load GLB model
 const loader = new GLTFLoader();
 loader.load(
-  "/assets/statue_tree.glb", // 3D object file
+  "/assets/statue_tree.glb", // Main tree and land model
   (gltf) => {
     model = gltf.scene;
     model.position.y = -4;
@@ -106,7 +124,7 @@ loader.load(
   },
 );
 loader.load(
-  "/assets/duck.glb", // <-- 3D Object
+  "/assets/duck.glb", // <-- Duck
   (gltf) => {
     model2 = gltf.scene;
     model2.position.x = 0.2;
@@ -125,7 +143,7 @@ loader.load(
   },
 );
 loader.load(
-  "/assets/angel_statue.glb", // <-- 3D Object
+  "/assets/angel_statue.glb", // <-- Glorified middle statue
   (gltf) => {
     model3 = gltf.scene;
     model3.position.x = -0.2;
@@ -144,7 +162,7 @@ loader.load(
   },
 );
 loader.load(
-  "/assets/an_animated_cat.glb", // 3D object file
+  "/assets/an_animated_cat.glb", // Animated Cat model
   (gltf) => {
     model4 = gltf.scene;
     model4.position.x = 4;
@@ -172,14 +190,14 @@ const container = document.querySelector("canvas");
 container.style.touchAction = "none";
 container.style.cursor = "grab";
 
-container.addEventListener(
+container.addEventListener( // revert grabbing style
   "pointerup",
   () => {
     container.style.cursor = "grab";
   },
   { passive: false },
 );
-container.addEventListener(
+container.addEventListener( // change cursor style to resemble grabbing when dragging
   "pointerdown",
   () => {
     container.style.cursor = "grabbing";
@@ -192,11 +210,14 @@ const zoom = document.querySelector(".objectZoom");
 const chatSymbol = document.getElementById('chatSymbol')
 const convo = document.querySelector(".conversation");
 convo.style.display = "none"
+
 zoom.addEventListener("click", () => {
   if(convo.style.display == "none"){
-    resetControls();
-    console.log(chatSymbol.src)
+    resetControls(); // reset controls so pre-established limitations does not hinder camera movement
+
+    // change chat icon to exit/cancel icon
     chatSymbol.src = "https://www.svgrepo.com/show/486564/cancel.svg"
+    
     // graceful join
     gsap.to(controls.target, { // moves the camera angle
       x: 3,
@@ -221,8 +242,11 @@ zoom.addEventListener("click", () => {
     controls.maxDistance = 0;
     controls.minAzimuthAngle = 0;
     controls.maxAzimuthAngle = 0;
+    
   }else{
     resetControls();
+
+    // revert back to chat icon
     chatSymbol.src = "https://www.svgrepo.com/show/501494/chat.svg"
     
     // graceful exit
@@ -243,7 +267,7 @@ zoom.addEventListener("click", () => {
       convo.style.display = "none";
     }, 1000);
   }
-  setControlLimits()
+  setControlLimits() // place limitations back on to orbit controls
 });
 
 // Animation loop
@@ -252,7 +276,7 @@ function animate() {
 
   if(model2){
     window.addEventListener('mousemove', (e) => {
-      model2.rotation.y = 500/e.clientX >= 2.9 ? 3 : 500/e.clientX;
+      model2.rotation.y = 500/e.clientX >= 2.9 ? 3 : 500/e.clientX; // Duck rotates to follow user's cursor
     })
   }
 

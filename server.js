@@ -22,7 +22,8 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.render("chat.njk", { title: "NOVA" });
+  res.render("chat.njk", { title: "NOVA", numClient: io.engine.clientsCount});
+  // io.emit('client id', io.engine.clientsCount)
 });
 
 app.get("/about", (req, res) => {
@@ -32,6 +33,11 @@ app.get("/about", (req, res) => {
 //to test if user has connected to the website
 io.on("connection", (socket) => {
   console.log("a user has connected");
+
+  socket.on('user wish', (dataFromClient) => {
+    // send the data back to the client
+    io.emit('server sent data', dataFromClient)
+  })
 
   //to test if user has disconnected from the website
   socket.on("disconnect", () => {
