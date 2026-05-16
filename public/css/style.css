@@ -14,7 +14,7 @@ canvas {
   top: 0;
   right: 0;
   margin: 20px;
-  width: 30px;
+  width: 50px;
   filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(278deg) brightness(102%) contrast(102%);
   z-index: 100;
   transition: .3s ease;
@@ -37,13 +37,20 @@ canvas {
   display: flex;
   align-items: center;
   gap: 20px;
-  margin: 20px;
+  margin: 40px;
   user-select: none;
 }
 
 .profileImg{
   width: 200px;
   border-radius: 100px;
+}
+
+#catTalk{
+  font-family: "Megrim";
+  font-weight: 900;
+  font-size: 2rem;
+  text-align: center;
 }
 
 .bubble{
@@ -56,24 +63,52 @@ canvas {
   align-content: center;
   padding: 2%;
 }
-#catTalk{
-  font-family: "Megrim";
-  font-weight: 900;
-  font-size: 2rem;
-  text-align: center;
-}
-#userTalk{
-  text-align: end;
-  text-wrap: wrap;
+
+input{
+  font-family: "Anta";
+  font-size: 1.2rem;
 }
 
 .userContainer{
   display: flex;
   flex-direction: column;
 }
+#userSpeechForm{
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 10px;
+}
+.userSpeechWrapper, .userWishInput{
+  width: 100%;
+}
+.usernameContainer{
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background: rgba(255, 255, 255, 0.863);
+  border: solid 5px white;
+  display: flex;
+  gap: 20px;
+  padding: 0% 2%;
+}
+#userWish{
+  width: 95%;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-top: none;
+  text-align: end;
+  text-wrap: wrap;
+}
+#wishButton{
+  display: flex;
+  justify-self: end;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+
 
 .history{
-  background: linear-gradient(353deg,rgba(255, 255, 255, 0) 10%, rgba(255, 255, 255, 0.52) 50%, rgba(255, 255, 255, 0) 90%);
+  /* background: linear-gradient(353deg,rgba(255, 255, 255, 0) 10%, rgba(255, 255, 255, 0.52) 50%, rgba(255, 255, 255, 0) 90%); */
   margin: 20px;
   margin-bottom: 0px;
   padding: .5% 2%;
@@ -83,21 +118,19 @@ canvas {
   transition: ease .3s;
 }
 .history:hover{
-  background: linear-gradient(180deg,rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.781) 15%,rgba(255, 255, 255, 0.788) 50%,rgba(255, 255, 255, 0.795) 75%, rgba(255, 255, 255, 0) 95%);
+  background-color: rgba(255, 255, 255, 0.562);
+  /* background: linear-gradient(180deg,rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.781) 15%,rgba(255, 255, 255, 0.788) 50%,rgba(255, 255, 255, 0.795) 75%, rgba(255, 255, 255, 0) 95%); */
   height: 20vh;
 }
-
-#userSpeech{
-  display: flex;
-  flex-direction: row-reverse;
-  margin-top: 10px;
-}
+.history::-webkit-scrollbar {
+    display: none;
+  }
 
 .about img{
   position: fixed;
   bottom: 0;
   right: 0;
-  width: 30px;
+  width: 50px;
   margin: 20px;
   filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(278deg) brightness(102%) contrast(102%);
   transition: ease .3s;

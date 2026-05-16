@@ -9,6 +9,24 @@ window.onload = () => {
   console.log("file has loaded");
 
   socket.emit("chat message", "hello it's me");
+
+  const form = document.getElementById('userSpeechForm')
+  const messages = document.getElementById('allMessages')
+  const username = document.getElementById('username')
+  const wish = document.getElementById('userWish')
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    socket.emit('user wish', `<b>${username.value} Duck:<b> ${wish.value}`)
+    wish.value = '' 
+  })
+
+  socket.on('server sent data', (dataFromServer) => {
+    const item = document.createElement('p')
+    item.innerHTML = dataFromServer
+    messages.appendChild(item)
+  })
 };
 
 let model; // we’ll store the loaded model here
