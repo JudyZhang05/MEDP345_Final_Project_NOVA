@@ -6,6 +6,33 @@ window.onload = () => {
   //adding socket into client
   const socket = io();
 
+  // ADDED DUCK ELEMENT:
+  // listens for the active duck list from server.js
+  // every connected user gets represented as a duck
+  socket.on("active ducks", (ducks) => {
+
+    // remove old ducks before adding updated duck list
+    for (let id in activeDuckModels) {
+      scene.remove(activeDuckModels[id]);
+      delete activeDuckModels[id];
+    }
+
+    // ADDED DUCK ELEMENT:
+    // add one duck for every active user
+    for (let id in ducks) {
+
+      addDuck(
+        id,
+        ducks[id].x,
+        ducks[id].y,
+        ducks[id].z,
+        ducks[id].rotation
+      );
+
+    }
+
+  });
+
   console.log("file has loaded");
 
   socket.emit("chat message", "hello it's me");
@@ -35,6 +62,10 @@ let model2;
 let model3;
 let model4;
 let mixer4;
+
+// ADDED DUCK ELEMENT:
+// stores all active duck models by socket/user id
+let activeDuckModels = {};
 
 // Scene
 const scene = new THREE.Scene();
@@ -102,6 +133,52 @@ scene.add(pointLight);
 
 // Load GLB model
 const loader = new GLTFLoader();
+
+// ADDED DUCK ELEMENT:
+// reusable function that loads one duck for one active user
+// each duck gets x, y, z, and rotation from server.js
+function addDuck(id, x, y, z, ducksRotation) {
+
+  loader.load(
+    "/assets/duck.glb",
+
+    (gltf) => {
+
+      let duck = gltf.scene;
+
+      // ADDED DUCK ELEMENT:
+      // places ducks onto different stair levels
+      duck.position.x = x;
+      duck.position.y = y;
+      duck.position.z = z;
+
+      duck.scale.x = 0.2;
+      duck.scale.y = 0.2;
+      duck.scale.z = 0.2;
+
+      // ADDED DUCK ELEMENT:
+      // ducks face different directions
+      duck.rotation.y = ducksRotation;
+
+      scene.add(duck);
+
+      // saves this duck so we can remove/update it later
+      activeDuckModels[id] = duck;
+
+    },
+
+    (xhr) => {
+      console.log((xhr.loaded / xhr.total) * 100 + "% duck loaded");
+    },
+
+    (error) => {
+      console.error("Error loading duck:", error);
+    },
+
+  );
+
+}
+
 loader.load(
   "/assets/statue_tree.glb", // Main tree and land model
   (gltf) => {
@@ -123,6 +200,12 @@ loader.load(
     console.error("Error loading model:", error);
   },
 );
+
+// REMOVED OLD DUCK ELEMENT:
+// the single permanent duck loader was removed
+// ducks are now added through Socket.io based on active users
+
+/*
 loader.load(
   "/assets/duck.glb", // <-- Duck
   (gltf) => {
@@ -142,6 +225,8 @@ loader.load(
     console.error("Error loading model:", error);
   },
 );
+*/
+
 loader.load(
   "/assets/angel_statue.glb", // <-- Glorified middle statue
   (gltf) => {
@@ -161,6 +246,7 @@ loader.load(
     console.error("Error loading model:", error);
   },
 );
+
 loader.load(
   "/assets/an_animated_cat.glb", // Animated Cat model
   (gltf) => {
@@ -197,6 +283,7 @@ container.addEventListener( // revert grabbing style
   },
   { passive: false },
 );
+
 container.addEventListener( // change cursor style to resemble grabbing when dragging
   "pointerdown",
   () => {
@@ -225,6 +312,7 @@ zoom.addEventListener("click", () => {
       z: 0,
       duration: 2,
     });
+
     gsap.to(camera.position, { // moves the camera position
       x: 3,
       y: 7,
@@ -274,15 +362,32 @@ zoom.addEventListener("click", () => {
 function animate() {
   requestAnimationFrame(animate);
 
-  if(model2){
-    window.addEventListener('mousemove', (e) => {
-      model2.rotation.y = 500/e.clientX >= 2.9 ? 3 : 500/e.clientX; // Duck rotates to follow user's cursor
-    })
+  // REMOVED OLD DUCK ROTATION
+  // ADDED DUCK ELEMENT
+  // keeps judy's mouse-follow rotation behavior
+  // applies to all active realtime ducks 
+  for (let id in activeDuckModels) {
+
+    if (activeDuckModels[id]) {
+
+      window.addEventListener('mousemove', (e) => {
+        activeDuckModels[id].rotation.y = 500 / e.clientX >= 2.9 ? 3 : 500 / e.clientX;
+      })
+
+    }
+
   }
 
   controls.update();
   renderer.render(scene, camera);
-  mixer.update(0.02);
-  mixer4.update(0.02);
+
+  if(mixer){
+    mixer.update(0.02);
+  }
+
+  if(mixer4){
+    mixer4.update(0.02);
+  }
 }
+
 animate();
