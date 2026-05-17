@@ -47,10 +47,43 @@ const camera = new THREE.PerspectiveCamera(
   1000,
 );
 
+// Audio Listener
+const listener = new THREE.AudioListener();
+camera.add(listener);
+
 // Renderer
 const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+// BACKGROUND MUSIC
+const bgMusic = new THREE.Audio(listener);
+// Load a sound and set it as the Audio object's buffer
+const audioLoader = new THREE.AudioLoader();
+audioLoader.load('/assets/audio/Leaf.mp3', (buffer) => {
+  bgMusic.setBuffer(buffer);
+  bgMusic.setLoop(true);
+  bgMusic.setVolume(0.4);
+
+});
+
+// Start music after first interaction
+window.addEventListener(
+  "click",
+  async () => {
+    const context = listener.context;
+
+    if (context.state === "suspended") {
+      await context.resume();
+    }
+
+    if (!bgMusic.isPlaying) {
+      bgMusic.play();
+      console.log("Music started");
+    }
+  },
+  { once: true }
+);
 
 // Controls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -134,6 +167,33 @@ loader.load(
     model2.scale.z = 0.2;
     model2.rotation.y = 2;
     scene.add(model2);
+
+    // Postional Audio
+    /*const duckSound = new THREE.PositionalAudio(listener);
+
+    audioLoader.load('/assets/audio/Duck.mp3', (buffer) => {
+      duckSound.setBuffer(buffer);
+
+      // Volume settings
+      duckSound.setRefDistance(2);
+
+      // How quickly sound fades
+      duckSound.setRolloffFactor(2);
+
+      // Max hearing distance
+      duckSound.setMaxDistance(10);
+
+      // Loop if desired
+      duckSound.setLoop(true);
+
+      // Volume
+      duckSound.setVolume(1);
+
+      duckSound.play();
+    });
+
+    // Attach sound TO the duck
+    model2.add(duckSound);*/
   },
   (xhr) => {
     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
@@ -274,15 +334,21 @@ zoom.addEventListener("click", () => {
 function animate() {
   requestAnimationFrame(animate);
 
-  if(model2){
-    window.addEventListener('mousemove', (e) => {
-      model2.rotation.y = 500/e.clientX >= 2.9 ? 3 : 500/e.clientX; // Duck rotates to follow user's cursor
-    })
-  }
-
   controls.update();
   renderer.render(scene, camera);
-  mixer.update(0.02);
-  mixer4.update(0.02);
+  if (mixer) {
+    mixer.update(0.02);
+  }
+
+  if (mixer4) {
+    mixer4.update(0.02);
+  }
 }
+
+window.addEventListener('mousemove', (e) => {
+  if(model2){
+    model2.rotation.y = 500/e.clientX >= 2.9 ? 3 : 500/e.clientX; // Duck rotates to follow user's cursor
+  }
+})
+
 animate();
