@@ -1,45 +1,46 @@
 {% include "header.njk" %}
 {% block content %}
-
-<div class="objectZoom">
-    <img id="chatSymbol" src="https://www.svgrepo.com/show/501494/chat.svg">
-</div>
-
-<div class="conversation">
-    <div class="speech">
-        <img src="/assets/cat.gif" class="profileImg">
-        <p class="bubble" id="catTalk">What is your wish?</p>
+    <div class="loading"><img src="/assets/gear-spinner.svg" width="150px">LOADING</div>
+    <div class="objectZoom">
+        <img id="chatSymbol" src="https://www.svgrepo.com/show/501494/chat.svg">
     </div>
-    <div class="userContainer">
-        <div class="history" id="allMessages">
-             <p id="totalUsers">&#128994; {{numClient}} Online</p>
-            {# <p><b>Hungry Duck:</b> I wish for more time on this project!</p>
-            <p><b>Mad Duck:</b> I wish for more money!</p>
-            <p><b>Loud Duck:</b> I wish for more friends!</p>
-            <p><b>Clown Duck:</b> I wish for rubber ducks!</p> #}
+    <div class="conversation">
+        <div class="speech">
+            <img src="/assets/cat.gif" class="profileImg">
+            <p class="bubble" id="catTalk">What is your wish?</p>
         </div>
-        <form class="speech" id="userSpeechForm">
-            <img src="/assets/duckProfile.png" class="profileImg">
-            <div class="userSpeechWrapper">
-                <div class="usernameContainer">
-                    <p>What adjective best describes you? I am a:</p>
-                    <input type="text" id="username" value="Boring" style="text-align: center;">
-                    <p>Duck!</p>
-                </div>
-                <div class="submitWish">
-                    <div class="userWishInput">
-                        <input type="text" class="bubble" id="userWish" placeholder="I wish for..."></input>
+        <div class="userContainer">
+            <div class="history" id="allMessages"></div>
+            <form class="speech" id="userSpeechForm">
+                <img src="/assets/duckProfile.png" class="profileImg">
+                <div class="userSpeechWrapper">
+                    <div class="usernameContainer">
+                        <p>What adjective best describes you? I am a:</p>
+                        <input type="text" id="username" value="Boring" style="text-align: center;">
+                        <p>Duck!</p>
+                    </div>
+                    <div class="submitWish">
+                        <div class="userWishInput">
+                            <input type="text" class="bubble" id="userWish" placeholder="I wish for..." autocomplete="off">
+                        </input>
                     </div>
                     <input type="submit" value="Make your wish" id="wishButton">
                 </div>
             </div>
         </form>
     </div>
-    
-</div>
-
-<div class="about">
-    <img src="https://www.svgrepo.com/show/146775/question-mark-in-a-circle.svg">
-</div>
-
+    <div class="blurred-Overlay"></div>
+    <div class="about">
+        <img src="https://www.svgrepo.com/show/146775/question-mark-in-a-circle.svg">
+    </div>
+    <div class="about-text">
+        <span id="about-line-1">How does this work?</span>
+        <span id="about-line-2">Welcome to NOVA! You are welcome to view this incredible tree, and if you would like to make a
+            wish, you are welcome to do so!</span>
+        <span id="about-line-3">The way this works is that you are given a chatbox to write anything you would like to wish for
+            to the tree, and it may or may not be granted! You can view any other people who are currently viewing the tree
+            alongside you, and then you would be able to view any other messages they have written alongside yours!</span>
+        <span id="about-line-4">Happy Wishing!</span>
+        <button id="about-button" type="button">Close!</button>
+    </div>
 {% endblock %}
