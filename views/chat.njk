@@ -1,5 +1,6 @@
 {% include "header.njk" %}
 {% block content %}
+    <div class="loading"><img src="/assets/gear-spinner.svg" width="150px">LOADING</div>
     <div class="objectZoom">
         <img id="chatSymbol" src="https://www.svgrepo.com/show/501494/chat.svg">
     </div>
@@ -9,25 +10,23 @@
             <p class="bubble" id="catTalk">What is your wish?</p>
         </div>
         <div class="userContainer">
-            <div class="history">
-                <p>
-                    <b>Hungry Duck:</b>
-                    I wish for more time on this project!</p>
-                <p>
-                    <b>Mad Duck:</b>
-                    I wish for more money!</p>
-                <p>
-                    <b>Loud Duck:</b>
-                    I wish for more friends!</p>
-                <p>
-                    <b>Clown Duck:</b>
-                    I wish for rubber ducks!</p>
-            </div>
-            <div class="speech" id="userSpeech">
+            <div class="history" id="allMessages"></div>
+            <form class="speech" id="userSpeechForm">
                 <img src="/assets/duckProfile.png" class="profileImg">
-                <input type="text" class="bubble" id="userTalk" placeholder="I wish for...">
+                <div class="userSpeechWrapper">
+                    <div class="usernameContainer">
+                        <p>What adjective best describes you? I am a:</p>
+                        <input type="text" id="username" value="Boring" style="text-align: center;">
+                        <p>Duck!</p>
+                    </div>
+                    <div class="submitWish">
+                        <div class="userWishInput">
+                        <input type="text" class="bubble" id="userWish" placeholder="I wish for..." autocomplete="off"> </input>
+                    </div>
+                    <input type="submit" value="Make your wish" id="wishButton">
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="about">
         <img src="https://www.svgrepo.com/show/146775/question-mark-in-a-circle.svg">
