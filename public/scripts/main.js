@@ -49,16 +49,30 @@ window.onload = () => {
     wish.value = '' 
   })
 
-  socket.on('server sent data', (dataFromServer) => {
+  socket.on('server sent data', (dataFromServer) => { // adds conversation functions
     const item = document.createElement('p')
     item.innerHTML = dataFromServer
     messages.appendChild(item)
   })
+
+  socket.on('total clients', (dataFromServer) => { // updates active user count
+    console.log(dataFromServer)
+    const updateUsers = document.createElement('p')
+    updateUsers.innerHTML = `&#x1F7E2 ${dataFromServer} Online`
+    messages.appendChild(updateUsers)
+  })
 };
+
+function startExperience(){
+  const loadingScreen = document.querySelector('.loading')
+  gsap.fromTo(loadingScreen, { opacity: 1 }, { opacity: 0, duration: 1, delay: 2 });
+  setTimeout(() => { // for insurance wait for 2 secs
+    loadingScreen.style.display = "none"
+  }, 3500)
+}
 
 let model; // we’ll store the loaded model here
 let mixer; // animation storage
-let model2;
 let model3;
 let model4;
 let mixer4;
@@ -194,38 +208,15 @@ loader.load(
     action.play();
   },
   (xhr) => {
+    if((xhr.loaded / xhr.total) * 100 == 100){ // when this 3D object finishes loading starts the experience
+      startExperience()
+    }
     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
   },
   (error) => {
     console.error("Error loading model:", error);
   },
 );
-
-// REMOVED OLD DUCK ELEMENT:
-// the single permanent duck loader was removed
-// ducks are now added through Socket.io based on active users
-
-/*
-loader.load(
-  "/assets/duck.glb", // <-- Duck
-  (gltf) => {
-    model2 = gltf.scene;
-    model2.position.x = 0.2;
-    model2.position.y = -0.69;
-    model2.scale.x = 0.2;
-    model2.scale.y = 0.2;
-    model2.scale.z = 0.2;
-    model2.rotation.y = 2;
-    scene.add(model2);
-  },
-  (xhr) => {
-    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-  },
-  (error) => {
-    console.error("Error loading model:", error);
-  },
-);
-*/
 
 loader.load(
   "/assets/angel_statue.glb", // <-- Glorified middle statue

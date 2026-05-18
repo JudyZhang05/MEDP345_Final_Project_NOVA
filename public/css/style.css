@@ -105,10 +105,11 @@ input{
   cursor: pointer;
 }
 
-
+.userContainer:hover .history{
+  background-color: rgba(255, 255, 255, 0.562);
+}
 
 .history{
-  /* background: linear-gradient(353deg,rgba(255, 255, 255, 0) 10%, rgba(255, 255, 255, 0.52) 50%, rgba(255, 255, 255, 0) 90%); */
   margin: 20px;
   margin-bottom: 0px;
   padding: .5% 2%;
@@ -119,7 +120,6 @@ input{
 }
 .history:hover{
   background-color: rgba(255, 255, 255, 0.562);
-  /* background: linear-gradient(180deg,rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.781) 15%,rgba(255, 255, 255, 0.788) 50%,rgba(255, 255, 255, 0.795) 75%, rgba(255, 255, 255, 0) 95%); */
   height: 20vh;
 }
 .history::-webkit-scrollbar {
@@ -139,4 +139,20 @@ input{
 .about img:hover{
   scale: 110%;
   cursor: pointer;
+}
+
+.loading{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 101;
+  cursor: wait;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+  font-size: 2rem;
 }
