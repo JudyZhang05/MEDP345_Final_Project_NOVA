@@ -10,7 +10,6 @@ window.onload = () => {
   // listens for the active duck list from server.js
   // every connected user gets represented as a duck
   socket.on("active ducks", (ducks) => {
-
     // remove old ducks before adding updated duck list
     for (let id in activeDuckModels) {
       scene.remove(activeDuckModels[id]);
@@ -20,55 +19,53 @@ window.onload = () => {
     // ADDED DUCK ELEMENT:
     // add one duck for every active user
     for (let id in ducks) {
-
-      addDuck(
-        id,
-        ducks[id].x,
-        ducks[id].y,
-        ducks[id].z,
-        ducks[id].rotation
-      );
-
+      addDuck(id, ducks[id].x, ducks[id].y, ducks[id].z, ducks[id].rotation);
     }
-
   });
 
   console.log("file has loaded");
 
   socket.emit("chat message", "hello it's me");
 
-  const form = document.getElementById('userSpeechForm')
-  const messages = document.getElementById('allMessages')
-  const username = document.getElementById('username')
-  const wish = document.getElementById('userWish')
+  const form = document.getElementById("userSpeechForm");
+  const messages = document.getElementById("allMessages");
+  const username = document.getElementById("username");
+  const wish = document.getElementById("userWish");
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault()
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-    socket.emit('user wish', `<b>${username.value} Duck:<b> ${wish.value}`)
-    wish.value = '' 
-  })
+    socket.emit("user wish", `<b>${username.value} Duck:<b> ${wish.value}`);
+    wish.value = "";
+  });
 
-  socket.on('server sent data', (dataFromServer) => { // adds conversation functions
-    const item = document.createElement('p')
-    item.innerHTML = dataFromServer
-    messages.appendChild(item)
-  })
+  socket.on("server sent data", (dataFromServer) => {
+    // adds conversation functions
+    const item = document.createElement("p");
+    item.innerHTML = dataFromServer;
+    messages.appendChild(item);
+  });
 
-  socket.on('total clients', (dataFromServer) => { // updates active user count
-    console.log(dataFromServer)
-    const updateUsers = document.createElement('p')
-    updateUsers.innerHTML = `&#x1F7E2 ${dataFromServer} Online`
-    messages.appendChild(updateUsers)
-  })
+  socket.on("total clients", (dataFromServer) => {
+    // updates active user count
+    console.log(dataFromServer);
+    const updateUsers = document.createElement("p");
+    updateUsers.innerHTML = `&#x1F7E2 ${dataFromServer} Online`;
+    messages.appendChild(updateUsers);
+  });
 };
 
-function startExperience(){
-  const loadingScreen = document.querySelector('.loading')
-  gsap.fromTo(loadingScreen, { opacity: 1 }, { opacity: 0, duration: 1, delay: 2 });
-  setTimeout(() => { // for insurance wait for 2 secs
-    loadingScreen.style.display = "none"
-  }, 3500)
+function startExperience() {
+  const loadingScreen = document.querySelector(".loading");
+  gsap.fromTo(
+    loadingScreen,
+    { opacity: 1 },
+    { opacity: 0, duration: 1, delay: 2 },
+  );
+  setTimeout(() => {
+    // for insurance wait for 2 secs
+    loadingScreen.style.display = "none";
+  }, 3500);
 }
 
 let model; // we’ll store the loaded model here
@@ -117,7 +114,7 @@ const setControlLimits = () => {
   controls.minAzimuthAngle = -95 * degToRad;
   controls.maxAzimuthAngle = 95 * degToRad;
 };
-setControlLimits()
+setControlLimits();
 
 // reset controls
 const resetControls = () => {
@@ -152,12 +149,10 @@ const loader = new GLTFLoader();
 // reusable function that loads one duck for one active user
 // each duck gets x, y, z, and rotation from server.js
 function addDuck(id, x, y, z, ducksRotation) {
-
   loader.load(
     "/assets/duck.glb",
 
     (gltf) => {
-
       let duck = gltf.scene;
 
       // ADDED DUCK ELEMENT:
@@ -178,7 +173,6 @@ function addDuck(id, x, y, z, ducksRotation) {
 
       // saves this duck so we can remove/update it later
       activeDuckModels[id] = duck;
-
     },
 
     (xhr) => {
@@ -188,9 +182,7 @@ function addDuck(id, x, y, z, ducksRotation) {
     (error) => {
       console.error("Error loading duck:", error);
     },
-
   );
-
 }
 
 loader.load(
@@ -208,8 +200,9 @@ loader.load(
     action.play();
   },
   (xhr) => {
-    if((xhr.loaded / xhr.total) * 100 == 100){ // when this 3D object finishes loading starts the experience
-      startExperience()
+    if ((xhr.loaded / xhr.total) * 100 == 100) {
+      // when this 3D object finishes loading starts the experience
+      startExperience();
     }
     console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
   },
@@ -267,7 +260,8 @@ const container = document.querySelector("canvas");
 container.style.touchAction = "none";
 container.style.cursor = "grab";
 
-container.addEventListener( // revert grabbing style
+container.addEventListener(
+  // revert grabbing style
   "pointerup",
   () => {
     container.style.cursor = "grab";
@@ -275,7 +269,8 @@ container.addEventListener( // revert grabbing style
   { passive: false },
 );
 
-container.addEventListener( // change cursor style to resemble grabbing when dragging
+container.addEventListener(
+  // change cursor style to resemble grabbing when dragging
   "pointerdown",
   () => {
     container.style.cursor = "grabbing";
@@ -285,26 +280,28 @@ container.addEventListener( // change cursor style to resemble grabbing when dra
 
 // to see where camera position is
 const zoom = document.querySelector(".objectZoom");
-const chatSymbol = document.getElementById('chatSymbol')
+const chatSymbol = document.getElementById("chatSymbol");
 const convo = document.querySelector(".conversation");
-convo.style.display = "none"
+convo.style.display = "none";
 
 zoom.addEventListener("click", () => {
-  if(convo.style.display == "none"){
+  if (convo.style.display == "none") {
     resetControls(); // reset controls so pre-established limitations does not hinder camera movement
 
     // change chat icon to exit/cancel icon
-    chatSymbol.src = "https://www.svgrepo.com/show/486564/cancel.svg"
-    
+    chatSymbol.src = "https://www.svgrepo.com/show/486564/cancel.svg";
+
     // graceful join
-    gsap.to(controls.target, { // moves the camera angle
+    gsap.to(controls.target, {
+      // moves the camera angle
       x: 3,
       y: 7,
       z: 0,
       duration: 2,
     });
 
-    gsap.to(camera.position, { // moves the camera position
+    gsap.to(camera.position, {
+      // moves the camera position
       x: 3,
       y: 7,
       z: 0.01,
@@ -321,23 +318,24 @@ zoom.addEventListener("click", () => {
     controls.maxDistance = 0;
     controls.minAzimuthAngle = 0;
     controls.maxAzimuthAngle = 0;
-    
-  }else{
+  } else {
     resetControls();
 
     // revert back to chat icon
-    chatSymbol.src = "https://www.svgrepo.com/show/501494/chat.svg"
-    
+    chatSymbol.src = "https://www.svgrepo.com/show/501494/chat.svg";
+
     // graceful exit
-    gsap.fromTo(convo, { opacity: 1 }, { opacity: 0, duration: 1});
+    gsap.fromTo(convo, { opacity: 1 }, { opacity: 0, duration: 1 });
     setTimeout(() => {
-      gsap.to(controls.target, { // moves the camera angle
+      gsap.to(controls.target, {
+        // moves the camera angle
         x: 0,
         y: 0,
         z: 0,
         duration: 2,
       });
-      gsap.to(camera.position, { // moves the camera position
+      gsap.to(camera.position, {
+        // moves the camera position
         x: 0,
         y: 0,
         z: 3,
@@ -346,7 +344,7 @@ zoom.addEventListener("click", () => {
       convo.style.display = "none";
     }, 1000);
   }
-  setControlLimits() // place limitations back on to orbit controls
+  setControlLimits(); // place limitations back on to orbit controls
 });
 
 // Animation loop
@@ -356,29 +354,40 @@ function animate() {
   // REMOVED OLD DUCK ROTATION
   // ADDED DUCK ELEMENT
   // keeps judy's mouse-follow rotation behavior
-  // applies to all active realtime ducks 
+  // applies to all active realtime ducks
   for (let id in activeDuckModels) {
-
     if (activeDuckModels[id]) {
-
-      window.addEventListener('mousemove', (e) => {
-        activeDuckModels[id].rotation.y = 500 / e.clientX >= 2.9 ? 3 : 500 / e.clientX;
-      })
-
+      window.addEventListener("mousemove", (e) => {
+        activeDuckModels[id].rotation.y =
+          500 / e.clientX >= 2.9 ? 3 : 500 / e.clientX;
+      });
     }
-
   }
 
   controls.update();
   renderer.render(scene, camera);
 
-  if(mixer){
+  if (mixer) {
     mixer.update(0.02);
   }
 
-  if(mixer4){
+  if (mixer4) {
     mixer4.update(0.02);
   }
 }
 
 animate();
+
+//ABOUT pop up
+const bodyPage = document.body;
+const aboutBttn = document.querySelector(".about");
+const aboutPage = document.querySelector(".about-text");
+const closeBttn = document.getElementById("about-button");
+aboutBttn.addEventListener("click", () => {
+  aboutPage.style.filter = "none";
+  aboutPage.style.visibility = "visible";
+});
+closeBttn.addEventListener("click", () => {
+  bodyPage.style.filter = "none";
+  aboutPage.style.visibility = "hidden";
+});
