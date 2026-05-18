@@ -1,6 +1,8 @@
 {% include "header.njk" %}
 {% block content %}
 
+<div class="loading"><img src="/assets/gear-spinner.svg" width="150px">LOADING</div>
+
 <div class="objectZoom">
     <img id="chatSymbol" src="https://www.svgrepo.com/show/501494/chat.svg">
 </div>
@@ -12,11 +14,6 @@
     </div>
     <div class="userContainer">
         <div class="history" id="allMessages">
-             <p id="totalUsers">&#128994; {{numClient}} Online</p>
-            {# <p><b>Hungry Duck:</b> I wish for more time on this project!</p>
-            <p><b>Mad Duck:</b> I wish for more money!</p>
-            <p><b>Loud Duck:</b> I wish for more friends!</p>
-            <p><b>Clown Duck:</b> I wish for rubber ducks!</p> #}
         </div>
         <form class="speech" id="userSpeechForm">
             <img src="/assets/duckProfile.png" class="profileImg">
@@ -28,7 +25,7 @@
                 </div>
                 <div class="submitWish">
                     <div class="userWishInput">
-                        <input type="text" class="bubble" id="userWish" placeholder="I wish for..."></input>
+                        <input type="text" class="bubble" id="userWish" placeholder="I wish for..." autocomplete="off"></input>
                     </div>
                     <input type="submit" value="Make your wish" id="wishButton">
                 </div>

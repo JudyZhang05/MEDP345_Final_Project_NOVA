@@ -26,16 +26,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.render("chat.njk", { title: "NOVA", numClient: io.engine.clientsCount});
-  // io.emit('client id', io.engine.clientsCount)
-});
-
-app.get("/about", (req, res) => {
-  res.render("about.njk", { title: "About The Project" });
 });
 
 //to test if user has connected to the website
 io.on("connection", (socket) => {
   console.log("a user has connected");
+
+  // update user count
+  io.emit('total clients', io.engine.clientsCount)
 
   // ADDED DUCK ELEMENT:
 // preset stair levels so ducks properly sit on different stair heights
@@ -81,6 +79,9 @@ activeDucks[socket.id] = {
 
     // send updated duck list to everyone
     io.emit("active ducks", activeDucks);
+
+    // update user count
+    io.emit('total clients', io.engine.clientsCount)
   });
 });
 
