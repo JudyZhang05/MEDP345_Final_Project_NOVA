@@ -94,6 +94,18 @@ const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
+// ADDED DUCK ELEMENT:
+// keeps camera + renderer proportional across screen sizes
+window.addEventListener("resize", () => {
+
+  camera.aspect = window.innerWidth / window.innerHeight;
+
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+});
+
 // Controls
 const controls = new OrbitControls(camera, renderer.domElement);
 camera.position.set(0, 0, 3);
