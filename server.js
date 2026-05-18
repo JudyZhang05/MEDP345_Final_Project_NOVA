@@ -37,11 +37,13 @@ io.on("connection", (socket) => {
 
   // ADDED DUCK ELEMENT:
 // preset stair levels so ducks properly sit on different stair heights
+// new changes for DUCK ELEMENT:
+// safer duck spawn zones so ducks do not clip as much across screen sizes
 let stairLevels = [
-  { z: -0.55, y: -0.62 },
-  { z: -0.25, y: -0.72 },
-  { z: 0.05, y: -0.82 },
-  { z: 0.35, y: -0.92 }
+  { z: -0.2, y: -0.68 },
+  { z: -0.1, y: -0.68 },
+  { z: 0.0, y: -0.68 },
+  { z: 0.1, y: -0.68 }
 ];
 
 // randomly choose one stair level
