@@ -159,6 +159,14 @@ input{
   padding: 20px;
 }
 
+.blurred-Overlay{
+  position:absolute;
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+}
+
 #about-line-1, #about-line-2, #about-line-3, #about-line-4{
   margin-bottom: 20px;
 }

@@ -380,14 +380,17 @@ animate();
 
 //ABOUT pop up
 const bodyPage = document.body;
+const blurredBackground = document.querySelector(".blurred-Overlay");
 const aboutBttn = document.querySelector(".about");
 const aboutPage = document.querySelector(".about-text");
 const closeBttn = document.getElementById("about-button");
 aboutBttn.addEventListener("click", () => {
+  blurredBackground.style.visibility = "visible";
   aboutPage.style.filter = "none";
   aboutPage.style.visibility = "visible";
 });
 closeBttn.addEventListener("click", () => {
+  blurredBackground.style.visibility = "hidden";
   bodyPage.style.filter = "none";
   aboutPage.style.visibility = "hidden";
 });
