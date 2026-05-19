@@ -226,7 +226,7 @@ function addDuck(id, x, y, z, ducksRotation) {
         duckSound.setMaxDistance(12);
 
         duckSound.setLoop(true);
-        duckSound.setVolume(0.4);
+        duckSound.setVolume(0.6);
 
         duckSound.setDirectionalCone(120, 180, 0.3);
 
