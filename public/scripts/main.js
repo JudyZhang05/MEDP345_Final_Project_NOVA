@@ -109,6 +109,13 @@ audioLoader.load('/assets/audio/Leaf.mp3', (buffer) => {
 
 });
 
+let duckSoundBuffer = null;
+const duckAudioLoader = new THREE.AudioLoader();
+
+duckAudioLoader.load('/assets/audio/Duck.mp3', (buffer) => {
+  duckSoundBuffer = buffer;
+});
+
 // Start music after first interaction
 window.addEventListener(
   "click",
@@ -206,6 +213,32 @@ function addDuck(id, x, y, z, ducksRotation) {
 
       // saves this duck so we can remove/update it later
       activeDuckModels[id] = duck;
+
+      // Postional Audio
+      if(duckSoundBuffer) {
+        const duckSound = new THREE.PositionalAudio(listener);
+      
+        duckSound.setBuffer(duckSoundBuffer);
+
+        // Core Spatial Settings
+        duckSound.setRefDistance(1); // Closer = Louder
+        duckSound.setRolloffFactor(2); //Stronger Distance Fade
+        duckSound.setMaxDistance(12);
+
+        duckSound.setLoop(true);
+        duckSound.setVolume(0.4);
+
+        duckSound.setDirectionalCone(120, 180, 0.3);
+
+        duck.add(duckSound);
+
+        // Basically autoplay
+        const tryPlay = () => {
+          if(!duckSound.isPlaying) duckSound.play();
+        };
+         
+        window.addEventListener("click", tryPlay, { once: true });
+      }
     },
 
     (xhr) => {
